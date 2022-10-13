@@ -4,7 +4,6 @@ import "../css/auth.css"
 import ButtonNavBar from "./NavBarAuth.jsx"
 import AXIOS from "../Tools/Client.jsx"
 import { Navigate } from 'react-router-dom';
-import SwitchTheme from "../Tools/SwitchTheme";
 
 function Register() {
     if (localStorage.getItem('token')) { return (<Navigate to="/home" />) }
@@ -30,6 +29,7 @@ function Register() {
             .catch(err => {
                 console.log(err);
                 //change the border of the input that is wrong in red
+                //check what kind of error message is sent by the server
             })
     }
 
