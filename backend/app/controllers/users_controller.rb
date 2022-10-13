@@ -12,6 +12,11 @@ class UsersController < ApplicationController
     render json: @users
   end
 
+  def signout
+    sign_out User.first
+    render json: { message: "Logged out." }, status: :ok
+  end
+
   # GET /users/1
   def show
     render json: @user, include: "*.*.*"
