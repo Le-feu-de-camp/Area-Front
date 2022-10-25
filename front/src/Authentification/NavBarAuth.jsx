@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react"
+import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import "../css/navbarAuth.css"
 import { FaMoon } from "react-icons/fa"

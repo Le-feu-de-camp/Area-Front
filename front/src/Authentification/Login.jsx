@@ -35,8 +35,6 @@ function LoginForm() {
             })
             .catch(error => {
                 console.log({ error });
-                //do red borders on elements that don't work
-                // document.getElementById("id_de_l'element").style.[valeur à changer]= "nouvelle valeur"
             });
     }
 
@@ -63,7 +61,9 @@ function Login() {
                 <LoginForm></LoginForm>
                 <div className="subtitle">Or continue with</div>
                 <div>
-                    <button className="socialNetworks">
+                    <button
+                        className="socialNetworks"
+                        onClick={() => { window.location.href = localStorage.getItem("url") + "/users/auth/google_oauth2" }}>
                         <GoogleLogo />
                     </button>
                     <button className="socialNetworks">
