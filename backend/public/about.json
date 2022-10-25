@@ -84,7 +84,8 @@
                 "name": "send_tweet",
                 "description": "A tweet is posted on your tweetline",
                 "options": {
-                    "content": "text"
+                    "content": "text",
+                    "refresh_token": "text"
                 }
             }, {
                 "name": "follow_user",

@@ -7,6 +7,12 @@ ruby "3.0.2"
 gem "devise", "~> 4.8.1"
 gem "devise-jwt", "~> 0.10.0"
 
+#GEM FOR TWITTER API
+gem "twitter"
+
+#Gem for replace HTTPparty with twitter API
+gem "typhoeus", "~> 1.4.0"
+
 # Omniauth
 gem 'omniauth'
 gem 'omniauth-twitter'
