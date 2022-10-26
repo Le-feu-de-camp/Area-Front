@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react";
 import { AiOutlineTwitter as TwitterLogo } from "react-icons/ai"
 import { ReactComponent as GoogleLogo } from "../images/google-icon.svg"
 import { Navigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import "../css/auth.css"
 import ButtonNavBar from "./NavBarAuth.jsx"
 import AXIOS from "../Tools/Client.jsx"
 import SwitchTheme from "../Tools/SwitchTheme";
+import openPopup from "./Popup.jsx";
 
 function LoginForm() {
 
@@ -53,6 +54,7 @@ function LoginForm() {
 function Login() {
     if (localStorage.getItem('token')) { return (<Navigate to="/home" />) }
     SwitchTheme();
+    const url = localStorage.getItem("url") + "/users/auth/google_oauth2";
 
     return (
         <div className="background">
@@ -63,7 +65,9 @@ function Login() {
                 <div>
                     <button
                         className="socialNetworks"
-                        onClick={() => { window.location.href = localStorage.getItem("url") + "/users/auth/google_oauth2" }}>
+                        onClick={() => openPopup(url)}
+                    // onClick={() => { window.location.href = localStorage.getItem("url") + "/users/auth/google_oauth2" }}
+                    >
                         <GoogleLogo />
                     </button>
                     <button className="socialNetworks">
