@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # config/routes.rb
 
-  #root to: "home#index"
+  root to: "home#index"
 
   # ##cancel for tests
 

@@ -45,7 +45,7 @@ class User < ApplicationRecord
          :jwt_authenticatable,
          :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: %i[twitter google_oauth2],
+         :omniauthable, omniauth_providers: %i[twitter2 google_oauth2],
          jwt_revocation_strategy: JwtDenylist
 
 

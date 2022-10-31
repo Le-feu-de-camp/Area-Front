@@ -277,7 +277,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :twitter, ENV["TWITTER_API_PUBLIC"], ENV["TWITTER_API_SECRET"]
+  config.omniauth :twitter2, ENV["TWITTER_CLIENT_ID"], ENV["TWITTER_CLIENT_SECRET"], callback_path: '/auth/twitter2/callback', scope: "tweet.read users.read"
   config.omniauth :google_oauth2, ENV["GOOGLE_API_PUBLIC"], ENV["GOOGLE_API_SECRET"]
   OmniAuth.config.allowed_request_methods = [:get]
 
