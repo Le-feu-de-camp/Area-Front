@@ -1,17 +1,10 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def twitter
-    @user = User.from_omniauth(request.env["omniauth.auth"])
-
-    if @user
-      render json: { message: "Connected" }, status: :ok
-    else
-      # session["devise.twitter_data"] = request.env["omniauth.auth"] # .except('extra')
-      render json: { message: "Not Connected" }, status: :unauthorized
-    end
-  end
 
   def google_oauth2
     @user = User.from_omniauth(request.env["omniauth.auth"])
+    puts (*)*500
+    puts @user
+    puts (*)*500
 
     if @user
       # render json: { message: "Connected" }, status: :ok
@@ -24,7 +17,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def twitter2
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    @user = User.from_omniauth(request.env['omniauth.auth'])
+    puts (*)*500
+    puts @user
+    puts (*)*500
 
     if @user
       # render json: { message: "Connected" }, status: :ok

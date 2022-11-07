@@ -50,13 +50,16 @@ class User < ApplicationRecord
 
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider).find_or_create_by(p_uid: auth.uid) do |user|
+    User.find_or_create_by(p_uid: auth.uid) do |user|
+      puts "*"*1000
+      puts auth.info
+      puts "*"*1000
       user.email = auth.info.email
       user.password = Devise.friendly_token
       user.first_name = auth.info.first_name # assuming the user model has a username
       user.last_name = auth.info.last_name # assuming the user model has a username
-      user.provider = auth.provider
-      user.p_uid = auth.uid
+      #user.provider = auth.provider
+      #user.p_uid = auth.uid
       # user.image = auth.info.image # assuming the user model has an image
     end
   end

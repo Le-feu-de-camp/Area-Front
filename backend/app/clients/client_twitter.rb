@@ -11,6 +11,15 @@ class ClientTwitter
     end
 
     def post_tweet
-        Typhoeus.post("https://api.twitter.com/2/tweets", headers: { "Authorization" => "Bearer AAAAAAAAAAAAAAAAAAAAALm6igEAAAAA0DVX5G0FcFngmvcJswCctbVfdbs%3D7RXD27nnwoZpS5cVq3AK1rXAplom3vANcUAp5zmhWSLgiGge0T" },  body: { "text": "t221212"})
+        Typhoeus.post("https://api.twitter.com/2/tweets", headers: { "Authorization" => "Bearer 1586016136650440705-0TIpSLhI9kro0iyxchiNWq3YNkSM9B" },  body: { "text": "t221212"})
     end
 end
+
+##Twitter.configure do |config|
+##    config.consumer_key = "fFTsVEtL2Hkh1IPLVOrof8TY3"
+##    config.consumer_secret = "BqccLA0XG4w8wYFT7gAEs228vhRs3RgLf7lFTlAn9x8jiFmRik"
+##    config.oauth_token = "NVZhRnR0Q3pRR3pwZ1Z4aklPbjg6MTpjaQ"
+##    config.oauth_token_secret = "jNPmD4ZEGvmXRe49bo7JjV-rHycbM_-qCSZMSC4tvVIy_N2OIv"
+##end
+##  client = Twitter::Client.new
+##  client.update("test")

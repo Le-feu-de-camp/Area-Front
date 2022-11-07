@@ -2,6 +2,7 @@
 
 require_relative "router_actions"
 require_relative "router_reactions"
+#OmniAuth::AuthenticityTokenProtection.default_options(key: "csrf.token", authenticity_param: "_csrf")
 
 Rails.application.reloader.to_prepare do
   Widget_to_kill ||= WidgetToKill.new

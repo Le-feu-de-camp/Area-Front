@@ -1,6 +1,9 @@
 require "httparty"
 
 class ApplicationController < ActionController::Base
+  skip_before_action :verify_authenticity_token, only: :create
+  #protect_from_forgery with: :null_session
+  #OmniAuth::AuthenticityTokenProtection.default_options(key: "csrf.token", authenticity_param: "_csrf")
   before_action :configure_permitted_parameters, if: :devise_controller?
   respond_to :json
 
