@@ -20,10 +20,10 @@ function APIPage() {
     useEffect(() => {
         AXIOS.get(user_url, { headers: { Authorization: token } })
             .then(function (res) {
-                if (res.data.spotify_token === true) {
+                if (res.data.spotify_token) {
                     setSpotifyText("Logout from Spotify");
                 }
-                if (res.data.google_token === true) {
+                if (res.data.google_token) {
                     setGoogleText("Logout from Google");
                 }
 
@@ -32,7 +32,7 @@ function APIPage() {
 
     function logoutSpotify() {
         var logout_url = localStorage.getItem("url") + `/users/delete_token`;
-        const service = {
+        let service = {
             "token": {
                 "service_name": "spotify"
             }
@@ -79,15 +79,17 @@ function APIPage() {
             .catch((err) => Error(err))
     }
 
+    let ID = "d89d9e6d83484fc48fff9bc6791371c0";
     useEffect(() => {
         AXIOS.get(user_url, { headers: { Authorization: token } })
             .then(function (res) {
+                console.log(res.data.spotify_token);
                 res.data.spotify_token ?
                     setElement(<button className="spotify spotify-button" onClick={() => { logoutSpotify() }}>{spotifyText}</button>)
-                    : setElement(<a className="spotify" href={`https://accounts.spotify.com/authorize?client_id=${process.env.SPOTIFY_CLIENT_ID}&redirect_uri=${url}&response_type=code&scope=user-library-read,playlist-modify-public,playlist-modify-private,user-read-private,user-read-email`}>{spotifyText}</a>)
+                    : setElement(<a className="spotify" href={`https://accounts.spotify.com/authorize?client_id=${ID}&redirect_uri=${url}&response_type=code&scope=user-library-read,playlist-modify-public,playlist-modify-private,user-read-private,user-read-email`}>{spotifyText}</a>)
             })
             .catch((err) => { Error(err) })
-    }, []);
+    }, [user_url, token, spotifyText]);
 
     async function checkUserGoogle() {
         await AXIOS.get(user_url, { headers: { Authorization: token } })
