@@ -7,13 +7,6 @@ class LikePlaylistReactionCommandHandler
   def call(attributes)
     puts "Like Playlist Command Handler"
 
-
-    # POST
-    # "https://example.com/v1/refresh"
-    # api.spotify.com
-    # -H "Content-Type: application/x-www-form-urlencoded"
-    # --data "refresh_token=NgCXRK...MzYjw"
-
     user = User.find(attributes[:user_id])
 
     # Get access token
