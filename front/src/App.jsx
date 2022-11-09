@@ -29,12 +29,7 @@ function App() {
         }
 
         AXIOS.post(url_target, access_token, { headers: { Authorization: token } })
-            .then((res) => {
-                console.log(res)
-            })
             .catch((err) => Error(err))
-
-
     }
 
     return (
