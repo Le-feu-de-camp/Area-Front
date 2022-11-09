@@ -24,8 +24,9 @@ function APIPage() {
             })
     }, [spotifyText, token, user_url])
 
+
     function logoutSpotify() {
-        var logout_url = localStorage.getItem("url") + `/users/spotify_token_delete`;
+        var logout_url = localStorage.getItem("url") + `/users/delete_token`;
 
         AXIOS.post(logout_url, { headers: { Authorization: token } })
             .then((res) => { setSpotifyText("Login with Spotify") })
@@ -53,7 +54,11 @@ function APIPage() {
     })
 
     function googleLogout() {
+        var logout_url = localStorage.getItem("url") + `/users/delete_token`;
 
+        AXIOS.post(logout_url, { headers: { Authorization: token } })
+            .then((res) => { setSpotifyText("Login with Google") })
+            .catch((err) => Error(err))
     }
 
     return (
