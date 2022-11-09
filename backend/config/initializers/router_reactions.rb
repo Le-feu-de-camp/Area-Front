@@ -9,4 +9,5 @@ Rails.application.reloader.to_prepare do
   RouterReaction.resolve(command: UpcomingReactionCommand, handler: UpcomingReactionCommandHandler.new)
   RouterReaction.resolve(command: DiscoverMovieReactionCommand, handler: DiscoverMovieReactionCommandHandler.new)
   RouterReaction.resolve(command: DailyPhotoMailReactionCommand, handler: DailyPhotoMailReactionCommandHandler.new)
+  RouterReaction.resolve(command: CatReactionCommand, handler: CatReactionCommandHandler.new)
 end
