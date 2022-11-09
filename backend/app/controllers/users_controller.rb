@@ -76,10 +76,14 @@ class UsersController < ApplicationController
     render json: { message: "Logged" }
   end
 
-  # POST /users/spotify_token_delete
-  def spotify_token_delete
-    current_user.delete_spotify_token
-    render json: { message: "Spotify token deleted." }, status: :ok
+  # POST /users/delete_token
+  def delete_token
+    res = current_user.delete_token(delete_token_params[:service_name])
+
+    if res[:error]
+      render json: { error: res[:error] }, status: :unauthorized and return
+    end
+    render json: { message: res[:message] }, status: :ok
   end
 
   private
@@ -101,6 +105,10 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :admin, :password)
+    end
+
+    def delete_token_params
+      params.require(:token).permit(:service_name)
     end
 
     def spotify_token_params

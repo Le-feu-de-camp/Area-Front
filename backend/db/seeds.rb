@@ -8,13 +8,15 @@
 
 # Users
 users = [
-  { first_name: "Jean-Jean", last_name: "La fouriere", email: "jean.four@email.com", password: "123456", admin: true, songs: :nil },
-  { first_name: "Kevin", last_name: "Gros", email: "grosKevin@gmail.com", password: "123456", admin: false, songs: :nil }
+  { first_name: "Jean-Jean", last_name: "La fouriere", email: "jean.four@email.com", password: "123456", admin: true,
+    songs: :nil, spotify_token: "fdqsglfgjfdsd" },
+  { first_name: "Kevin", last_name: "Gros", email: "grosKevin@gmail.com", password: "123456", admin: false,
+    songs: :nil }
   ]
 if User.count == 0
   users.each do |user|
     User.create!(first_name: user[:first_name], last_name: user[:last_name], email: user[:email],
-                admin: user[:admin], password: user[:password])
+                admin: user[:admin], password: user[:password], songs: user[:songs], spotify_token: user[:spotify_token])
   end
 end
 

@@ -94,7 +94,8 @@ class User < ApplicationRecord
   end
 
   def request_token_from_google(params)
-    result = HTTParty.post("https://accounts.google.com/o/oauth2/token", body: google_body(params[:code], params[:redirect_uri]))
+    result = HTTParty.post("https://accounts.google.com/o/oauth2/token",
+body: google_body(params[:code], params[:redirect_uri]))
     if result["error"]
       return { error: result["error_description"] }
     end
@@ -146,9 +147,13 @@ class User < ApplicationRecord
     user
   end
 
-  def delete_spotify_token
-    self.spotify_token = nil
-    self.save
+  def delete_token(name)
+    self.send("#{name}_token=", nil)
+    if self.save
+      { message: "#{name.capitalize} token deleted" }
+    else
+      { error: "Error with #{name} token" }
+    end
   end
 
   private
