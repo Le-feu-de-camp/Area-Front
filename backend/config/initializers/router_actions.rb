@@ -10,4 +10,5 @@ Rails.application.reloader.to_prepare do
   RouterAction.resolve(command: WeatherChangeActionCommand, handler: WeatherChangeActionCommandHandler.new)
   RouterAction.resolve(command: PlaylistFollowActionCommand, handler: PlaylistFollowActionCommandHandler.new)
   RouterAction.resolve(command: EmailReceivedActionCommand, handler: EmailReceivedActionCommandHandler.new)
+  RouterAction.resolve(command: NewEpisodeActionCommand, handler: NewEpisodeActionCommandHandler.new)
 end

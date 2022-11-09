@@ -53,11 +53,27 @@ function LoginForm() {
 }
 
 function Login() {
-
+    const navigate = useNavigate()
     const [isDark, setIsDark] = useState(localStorage.getItem("theme") === "theme-dark" ? true : false);
 
     const googleLogin = useGoogleLogin({
-        onSuccess: tokenResponse => console.log(tokenResponse),
+
+        onSuccess: tokenResponse => {
+            AXIOS.create({ "sameSite": "None; Secure" }).post(
+                localStorage.getItem("url") + "/users/google_sign_in",
+                {
+                    "user": {
+                        "code": tokenResponse.code,
+                        "redirect_uri": window.location.href.split("/#")[0]
+                    }
+                })
+                .then(response => {
+                    const token = response.headers["authorization"].replace("Bearer ", "");
+                    localStorage.setItem("token", token);
+                    navigate('/home')
+                })
+                .catch(error => { Error({ "res": error }) })
+        },
         flow: 'auth-code',
         scope: `https://www.googleapis.com/auth/gmail.modify`,
         onError: error => Error({ "res": error }),
