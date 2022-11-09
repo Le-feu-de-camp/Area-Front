@@ -163,6 +163,10 @@ class User < ApplicationRecord
     user
   end
 
+  def delete_spotify_token
+    self.spotify_token = nil
+    self.save
+  end
 
   private
     def self.google_refresh_token_body(refresh_token)
