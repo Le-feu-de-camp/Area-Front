@@ -5,7 +5,6 @@ import SettingsNavBar from "./SettingsNavBar"
 import Container from "../Tools/Container"
 import SwitchTheme from "../Tools/SwitchTheme"
 import AXIOS from "../Tools/Client"
-import LogoutUser from "../Authentification/LogOut"
 
 function APIPage() {
     SwitchTheme();
@@ -53,6 +52,10 @@ function APIPage() {
         onError: error => Error({ "res": error })
     })
 
+    function googleLogout() {
+
+    }
+
     return (
         <>
             <SettingsNavBar currentPage="API" />
@@ -65,7 +68,7 @@ function APIPage() {
                 </Container>
 
                 <Container type="large" key="Google">
-                    <button className="google-button" onClick={() => { (googleText === "Login with Google") ? googleLogin() : LogoutUser() }}>{googleText}</button>
+                    <button className="google-button" onClick={() => { (googleText === "Login with Google") ? googleLogin() : googleLogout() }}>{googleText}</button>
                 </Container>
             </div>
         </>
