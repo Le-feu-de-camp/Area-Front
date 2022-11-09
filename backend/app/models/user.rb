@@ -110,6 +110,8 @@ class User < ApplicationRecord
     self.save
   end
 
+
+  # OAUTH2
   def self.sign_in_with_google(params)
     result = HTTParty.post("https://accounts.google.com/o/oauth2/token",
                            body: google_body(params[:code], params[:redirect_uri]),
@@ -149,6 +151,45 @@ class User < ApplicationRecord
     connection_from_oauth(result, "google", refresh_token)
   end
 
+  def self.sign_in_with_twitter(params)
+    result = HTTParty.post("https://api.twitter.com/2/oauth2/token",
+                           body: twitter_body(params[:code], params[:redirect_uri]),
+                           headers: { "content-type": "application/x-www-form-urlencoded" })
+    puts "*" * 100
+    puts "TOKEN".center(40)
+    puts result
+    puts "*" * 100
+    if result["error"]
+      return [nil, result]
+    end
+
+    refresh_token = result["refresh_token"]
+    result = HTTParty.post("https://api.twitter.com/2/oauth2/token", body: twitter_refresh_token_body(refresh_token),
+                           headers: { "content-type": "application/x-www-form-urlencoded" })
+
+    puts "*" * 100
+    puts "REFRESH_TOKEN".center(40)
+    puts result
+    puts "*" * 100
+    if result["error"]
+      return [nil, result]
+    end
+
+    access_token = result["access_token"]
+    result = HTTParty.get("https://api.twitter.com/2/oauth2/token",
+                           headers: { "content-type": "application/x-www-form-urlencoded", "Authorization": "Bearer" })
+
+    puts "*" * 100
+    puts "ACCESS_TOKEN".center(40)
+    puts result
+    puts "*" * 100
+    if result["error"]
+      return [nil, result]
+    end
+
+    connection_from_oauth(result, "twitter", refresh_token)
+  end
+
   def self.connection_from_oauth(auth, provider, token)
     user = User.find_or_create_by(p_uid: auth["id"]) do |user|
       user.email = auth["email"]
@@ -165,6 +206,7 @@ class User < ApplicationRecord
 
 
   private
+
     def self.google_refresh_token_body(refresh_token)
       { grant_type: "refresh_token",
         client_id: ENV["GOOGLE_CLIENT_ID"],
@@ -186,19 +228,27 @@ class User < ApplicationRecord
         redirect_uri: redirect_uri }
     end
 
+    def self.twitter_refresh_token_body(refresh_token)
+      { grant_type: "refresh_token",
+        client_id: ENV["TWITTER_CLIENT_PUBLIC"],
+        client_secret: ENV["TWITTER_CLIENT_SECRET"],
+        refresh_token: refresh_token }
+    end
+
+    def self.twitter_body(code, redirect_uri)
+      { code: code,
+        client_id: ENV["TWITTER_CLIENT_PUBLIC"],
+        client_secret: ENV["TWITTER_CLIENT_SECRET"],
+        grant_type: "authorization_code",
+        redirect_uri: redirect_uri
+        code_verifier: "challenge" }
+    end
+
     def spotify_body(code, redirect_uri)
       { client_id: ENV["SPOTIFY_CLIENT_ID"],
         client_secret: ENV["SPOTIFY_CLIENT_SECRET"], code: code,
         grant_type: "authorization_code",
         redirect_uri: redirect_uri }
-    end
-
-
-    def self.twitter_body(code)
-      { "code" => code,
-        "client_id"     => ENV["TWITTER_API_PUBLIC"],
-        "client_secret" => ENV["TWITTER_API_SECRET"],
-        "grant_type"    => "authorization_code" }
     end
 
     def destroy_widgets

@@ -72,8 +72,31 @@ class UsersController < ApplicationController
     redirect_to controller: "users/sessions", action: :create
   end
 
+
+  # POST /users/spotify_token_delete
+  def spotify_token_delete
+    current_user.spotify_token = nil
+    current_user.save
+    render json: { message: "Spotify token deleted." }, status: :ok
+  end
+
+  # POST /users/twitter_sign_in
+  def twitter_sign_in
+    @user, error = User.sign_in_with_twitter(twitter_params)
+    unless @user
+      render json: error, status: :unauthorized and return
+    end
+
+    sign_in(@user)
+    redirect_to controller: "users/sessions", action: :create
+  end
+
   private
     def google_params
+      params.require(:user).permit(:code, :redirect_uri)
+    end
+
+    def twitter_params
       params.require(:user).permit(:code, :redirect_uri)
     end
 
