@@ -4,6 +4,7 @@ import '../css/style.css'
 import Navbar from '../Tools/Navbar'
 import Load from '../Tools/Load'
 import Background from '../Tools/Background'
+import Text from '../Tools/Text'
 import { AlbumsShelf } from '../Tools/Songs'
 import Widget from '../Tools/Widget'
 import { Error } from '../Tools/Notif'
@@ -22,10 +23,13 @@ function Home() {
 
         AXIOS.get(localStorage.getItem("url") + "/current_user", { headers: { Authorization: token } })
             .then(res => {
+                console.log(res.data)
                 var widgets = res.data.widgets.map((w) => { return <Widget key={GenerateKey()} w={w} /> })
                 setElement(
                     <>
-                        <Background url={res?.data?.background}/>
+                        <Background url={res?.data?.cat["picture"]} />
+                        <Text text={res?.data?.cat["fact"]} />
+                        <Background url={res?.data?.background} />
                         <AlbumsShelf albums={res?.data?.songs} />
                         {widgets}
                     </>
