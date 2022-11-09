@@ -29,19 +29,29 @@ function APIPage() {
         var logout_url = localStorage.getItem("url") + `/users/spotify_token_delete`;
 
         AXIOS.post(logout_url, { headers: { Authorization: token } })
-            .then((res) => { console.log("hello"); setSpotifyText("Login with Spotify") })
+            .then((res) => { setSpotifyText("Login with Spotify") })
             .catch((err) => console.log(err))
     }
 
     const googleLogin = useGoogleLogin({
         onSuccess: tokenResponse => {
-            console.log(tokenResponse);
+            var url_target = localStorage.getItem("url") + `/users/refresh_token`;
+            const token = "Bearer " + localStorage.getItem("token");
+            var access_token = {
+                "refresh_token": {
+                    "name": "google",
+                    "code": tokenResponse.code,
+                    "redirect_uri": localStorage.getItem("platform") === "mobile" ? "file:///android_asset/www/index.html" : "http://" + window.location.href.split("/")[2]
+                }
+            }
             setGoogleText("Logout from Google");
+            AXIOS.post(url_target, access_token, { headers: { Authorization: token } })
+                .catch((err) => Error(err))
         },
         flow: 'auth-code',
         scope: `https://www.googleapis.com/auth/gmail.modify`,
-        onError: error => Error({ "res": error }),
-    });
+        onError: error => Error({ "res": error })
+    })
 
     return (
         <>
