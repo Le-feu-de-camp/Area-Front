@@ -62,36 +62,20 @@
                 }
             }]
         }, {
-            "name": "twitter",
-            "actions": [{
-                "name": "tweet_liked",
-                "description": "When you like a tweet... [Twitter account required]",
-                "options": {}
-            }, {
-                "name": "new_follower",
-                "description": "When someone follow you... [Twitter account required]",
-                "options": {}
-            }, {
-                "name": "new_tl",
-                "description": "When a new tweet appear in your tweetline... [Twitter account required]",
-                "options": {}
-            }, {
-                "name": "get_mentionned",
-                "description": "When someone mention you... [Twitter account required]",
-                "options": {}
-            }],
+            "name": "theMovieDB",
+            "actions": [],
             "reactions": [{
-                "name": "send_tweet",
-                "description": "A tweet is posted on your tweetline [Twitter account required]",
-                "options": {
-                    "content": "text"
-                }
+                "name": "upcoming",
+                "description": "Get an email with the upcoming movies [Google account required]",
+                "options": {}
             }, {
-                "name": "follow_user",
-                "description": "Follow the selected user [Twitter account required]",
-                "options": {
-                    "user_name": "text"
-                }
+                "name": "discover_movie",
+                "description": "Get and email with a movie recommandation [Google account required]",
+                "options": {}
+            }, {
+                "name": "airing_today",
+                "description": "Get and email with the airing today tv shows [Google account required]",
+                "options": {}
             }]
         }, {
             "name": "nasa",
