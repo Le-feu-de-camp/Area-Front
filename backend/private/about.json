@@ -97,13 +97,11 @@
                 "description": "Add the daily photography from the NASA to the home page",
                 "options": {}
             }, {
-                "name": "daily_photo_twitter",
-                "description": "Post the daily photography from the NASA on Twitter [Twitter account required]",
-                "options": {}
-            }, {
                 "name": "daily_photo_mail",
                 "description": "Send by email the photography from the NASA [Google account required]",
-                "options": {}
+                "options": {
+                    "email": "text"
+                }
             }]
         }, {
             "name": "spotify",

@@ -15,7 +15,7 @@ function APIPage() {
         <SettingsNavBar currentPage="API" />
         <div className="content large">
             <Container type="large" key="Spotify">
-                <a  className="spotify" href={`https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${url}&response_type=code&scope=user-library-read,playlist-modify-public,playlist-modify-private,user-read-private,user-read-email`}>Login with Spotify</a>
+                <a className="spotify" href={`https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${url}&response_type=code&scope=user-library-read,playlist-modify-public,playlist-modify-private,user-read-private,user-read-email`}>Login with Spotify</a>
             </Container>
 
             {/* <Container type="large" key="Google">
