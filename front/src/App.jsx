@@ -1,5 +1,4 @@
 import { HashRouter, Routes, Route, Link } from "react-router-dom"
-import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import Register from "./Authentification/Register"
 import Login from "./Authentification/Login"
@@ -11,12 +10,31 @@ import Appearance from "./Settings/Appearance"
 import Identification from "./Settings/Identification"
 import APIPage from "./Settings/KeyManagement"
 import Admin from "./Pages/Admin"
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import AXIOS from "./Tools/Client"
 
 function App() {
+
     if (window.location.href.includes("code")) {
-        var url = new URL(window.location.href)
-        var access_token = url.searchParams.get("code")
-        localStorage.setItem("spotifyToken", access_token)
+        console.log("try to save spotify token")
+        var token = "Bearer " + localStorage.getItem("token");
+        var url_target = localStorage.getItem("url") + `/users/refresh_token`
+        localStorage.setItem("spotifyToken", window.location.href.split("code=")[1].split("&")[0])
+        var access_token = {
+            "refresh_token": {
+                "name": "spotify",
+                "code": localStorage.getItem("spotifyToken"),
+                "redirect_uri": localStorage.getItem("platform") === "mobile" ? "file:///android_asset/www/index.html" : "http://" + window.location.href.split("/")[2]
+            }
+        }
+
+        AXIOS.post(url_target, access_token, { headers: { Authorization: token } })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => Error(err))
+
+
     }
 
     return (
@@ -24,17 +42,17 @@ function App() {
             <HashRouter>
                 <Link id="toHome" to="/Home" tabIndex="1">Return to Home</Link>
                 <Routes>
-                    <Route path="/" exact element={<Login />} />
-                    <Route path="/login" exact element={<Login />} />
-                    <Route path="/register" exact element={<Register />} />
-                    <Route path="/home" exact element={<Home />} />
-                    <Route path="/logout" exact element={<LogoutUser />} />
-                    <Route path='/create' exact element={<Create />} />
-                    <Route path='/profil' exact element={<UserProfil />} />
-                    <Route path='/identification' exact element={<Identification />} />
-                    <Route path='/appearance' exact element={<Appearance />} />
-                    <Route path='/keys' exact element={<APIPage />} />
-                    <Route path='/admin' exact element={<Admin />} />
+                    <Route path="/" element={<Login />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/logout" element={<LogoutUser />} />
+                    <Route path='/create' element={<Create />} />
+                    <Route path='/profil' element={<UserProfil />} />
+                    <Route path='/identification' element={<Identification />} />
+                    <Route path='/appearance' element={<Appearance />} />
+                    <Route path='/keys' element={<APIPage />} />
+                    <Route path='/admin' element={<Admin />} />
                 </Routes>
             </HashRouter>
         </GoogleOAuthProvider>
