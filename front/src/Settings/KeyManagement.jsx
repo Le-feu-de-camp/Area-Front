@@ -15,7 +15,6 @@ function APIPage() {
     var user_url = localStorage.getItem("url") + "/current_user";
     const [spotifyText, setSpotifyText] = useState("Login with Spotify");
     const [googleText, setGoogleText] = useState("Login with Google");
-    const [element, setElement] = useState(<Load />);
 
     useEffect(() => {
         AXIOS.get(user_url, { headers: { Authorization: token } })
@@ -26,7 +25,6 @@ function APIPage() {
                 if (res.data.google_token) {
                     setGoogleText("Logout from Google");
                 }
-
             })
     }, [spotifyText, token, user_url]);
 
@@ -79,17 +77,6 @@ function APIPage() {
             .catch((err) => Error(err))
     }
 
-    useEffect(() => {
-        AXIOS.get(user_url, { headers: { Authorization: token } })
-            .then(function (res) {
-                res.data.spotify_token ?
-                    setElement(<button className="spotify spotify-button" onClick={() => { logoutSpotify() }}>{spotifyText}</button>)
-                    : setElement(<a className="spotify" href={`https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&redirect_uri=${url}&response_type=code&scope=user-library-read,playlist-modify-public,playlist-modify-private,user-read-private,user-read-email`}>{spotifyText}</a>)
-            })
-            .catch((err) => { Error(err) })
-        // eslint-disable-next-line
-    }, [user_url, token, url, spotifyText]);
-
     async function checkUserGoogle() {
         await AXIOS.get(user_url, { headers: { Authorization: token } })
             .then(function (res) {
@@ -98,14 +85,34 @@ function APIPage() {
             .catch((err) => { return (false); })
     }
 
+    const Spotify = () => {
+        console.log("here");
+        const [element, setElement] = useState(<Load />);
+
+        useEffect(() => {
+            AXIOS.get(user_url, { headers: { Authorization: token } })
+                .then(function (res) {
+                    res.data.spotify_token ?
+                        setElement(<button className="spotify spotify-button" onClick={logoutSpotify}>{spotifyText}</button>)
+                        : setElement(<a className="spotify" href={`https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&redirect_uri=${url}&response_type=code&scope=user-library-read,playlist-modify-public,playlist-modify-private,user-read-private,user-read-email`}>{spotifyText}</a>)
+                })
+                .catch((err) => { Error(err) })
+            // eslint-disable-next-line
+        }, [user_url, token, url, spotifyText]);
+
+        return (
+            <Container type="large" key="Spotify">
+                {element}
+            </Container>
+        )
+
+    }
+
     return (
         <>
             <SettingsNavBar currentPage="API" />
             <div className="content large">
-                <Container type="large" key="Spotify">
-                    {element}
-                </Container>
-
+                <Spotify />
                 <Container type="large" key="Google">
                     <button className="google-button" onClick={() => { checkUserGoogle() }}>{googleText}</button>
                 </Container>
