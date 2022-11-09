@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "devise/jwt/test_helpers"
+
 class UsersController < ApplicationController
   before_action :user_logged?, except: %i[ google_sign_in ]
   before_action :set_user, only: %i[ show update destroy ]
@@ -69,7 +71,9 @@ class UsersController < ApplicationController
     end
 
     sign_in(@user)
-    redirect_to controller: "users/sessions", action: :create
+    headers = Devise::JWT::TestHelpers.auth_headers({}, @user)
+    response.set_header("Authorization", headers["Authorization"])
+    render json: { message: "Logged" }
   end
 
   private
