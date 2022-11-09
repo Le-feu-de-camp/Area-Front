@@ -62,36 +62,32 @@
                 }
             }]
         }, {
-            "name": "twitter",
+            "name": "theMovieDB",
             "actions": [{
-                "name": "tweet_liked",
-                "description": "When you like a tweet... [Twitter account required]",
-                "options": {}
-            }, {
-                "name": "new_follower",
-                "description": "When someone follow you... [Twitter account required]",
-                "options": {}
-            }, {
-                "name": "new_tl",
-                "description": "When a new tweet appear in your tweetline... [Twitter account required]",
-                "options": {}
-            }, {
-                "name": "get_mentionned",
-                "description": "When someone mention you... [Twitter account required]",
-                "options": {}
+                "name": "new_episode",
+                "description": "When a new episode is available...",
+                "options": {
+                    "show_id": "text"
+                }
             }],
             "reactions": [{
-                "name": "send_tweet",
-                "description": "A tweet is posted on your tweetline [Twitter account required]",
+                "name": "upcoming",
+                "description": "Get an email with the upcoming movies [Google account required]",
+                "options": {}
+            }, {
+                "name": "discover_movie",
+                "description": "Get and email with a movie recommandation [Google account required]",
                 "options": {
-                    "content": "text"
+                    "language": "text",
+                    "region": "text",
+                    "adult": "text",
+                    "min_date": "text",
+                    "min_score": "text"
                 }
             }, {
-                "name": "follow_user",
-                "description": "Follow the selected user [Twitter account required]",
-                "options": {
-                    "user_name": "text"
-                }
+                "name": "airing_today",
+                "description": "Get and email with the airing today tv shows [Google account required]",
+                "options": {}
             }]
         }, {
             "name": "nasa",
@@ -101,13 +97,11 @@
                 "description": "Add the daily photography from the NASA to the home page",
                 "options": {}
             }, {
-                "name": "daily_photo_twitter",
-                "description": "Post the daily photography from the NASA on Twitter [Twitter account required]",
-                "options": {}
-            }, {
                 "name": "daily_photo_mail",
                 "description": "Send by email the photography from the NASA [Google account required]",
-                "options": {}
+                "options": {
+                    "email": "text"
+                }
             }]
         }, {
             "name": "spotify",

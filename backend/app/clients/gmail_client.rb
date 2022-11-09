@@ -7,8 +7,13 @@ class GmailClient
   end
 
   def user_info
-    HTTParty.get("https://gmail.googleapis.com/gmail/v1/users/#{@email}/profile",
-                 headers: { "Authorization": "Bearer #{access_token}" })
+    begin
+      HTTParty.get("https://gmail.googleapis.com/gmail/v1/users/#{@email}/profile",
+        headers: { "Authorization": "Bearer #{access_token}" })
+    rescue NoMethodError
+      puts "Error: Gmail return null"
+      return false
+    end
   end
 
   def send_mail(to, subject, message)
@@ -19,10 +24,18 @@ Subject: #{subject}
 #{message}").tr("+/", "-_").delete("\n")
     puts raw
 
-    HTTParty.post("https://gmail.googleapis.com/gmail/v1/users/#{@email}/messages/send",
-                 headers: { "Authorization": "Bearer #{access_token}", "Accept": "application/json",
-                            "Content-Type": "application/json" },
-                 body: { raw: raw }.to_json)
+    begin
+      HTTParty.post("https://gmail.googleapis.com/gmail/v1/users/#{@email}/messages/send",
+        headers: { 
+          "Authorization": "Bearer #{access_token}", "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: { raw: raw }.to_json
+      )
+    rescue NoMethodError
+      puts "Error: Gmail return null"
+      return false
+    end
   end
 
   private

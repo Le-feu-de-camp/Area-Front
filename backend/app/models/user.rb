@@ -114,37 +114,21 @@ class User < ApplicationRecord
     result = HTTParty.post("https://accounts.google.com/o/oauth2/token",
                            body: google_body(params[:code], params[:redirect_uri]),
                            headers: { "content-type": "application/x-www-form-urlencoded" })
-    puts "*" * 100
-    puts "TOKEN".center(40)
-    puts result
-    puts "*" * 100
-    if result["error"]
-      return [nil, result]
-    end
+
+    return [nil, result] if result["error"]
 
     refresh_token = result["refresh_token"]
     result = HTTParty.post("https://accounts.google.com/o/oauth2/token", body: google_refresh_token_body(refresh_token),
                            headers: { "content-type": "application/x-www-form-urlencoded" })
 
-    puts "*" * 100
-    puts "REFRESH_TOKEN".center(40)
-    puts result
-    puts "*" * 100
-    if result["error"]
-      return [nil, result]
-    end
+
+    return [nil, result] if result["error"]
 
     access_token = result["access_token"]
     result = HTTParty.get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=#{access_token}",
                            headers: { "content-type": "application/x-www-form-urlencoded", "Authorization": "Bearer" })
 
-    puts "*" * 100
-    puts "ACCESS_TOKEN".center(40)
-    puts result
-    puts "*" * 100
-    if result["error"]
-      return [nil, result]
-    end
+    return [nil, result] if result["error"]
 
     connection_from_oauth(result, "google", refresh_token)
   end
