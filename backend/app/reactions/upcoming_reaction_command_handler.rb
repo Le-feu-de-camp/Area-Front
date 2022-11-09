@@ -29,7 +29,7 @@ class UpcomingReactionCommandHandler
 
     user = User.find(attributes[:user_id])
     gmail = GmailClient.new(user.google_token, user.email)
-    gmail.send_email(
+    gmail.send_mail(
       user.email,
       "AREA Upcoming Movies (#{date})",
       result

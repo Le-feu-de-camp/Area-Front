@@ -63,7 +63,13 @@
             }]
         }, {
             "name": "theMovieDB",
-            "actions": [],
+            "actions": [{
+                "name": "new_episode",
+                "description": "When a new episode is available...",
+                "options": {
+                    "show_id": "text"
+                }
+            }],
             "reactions": [{
                 "name": "upcoming",
                 "description": "Get an email with the upcoming movies [Google account required]",
@@ -71,7 +77,13 @@
             }, {
                 "name": "discover_movie",
                 "description": "Get and email with a movie recommandation [Google account required]",
-                "options": {}
+                "options": {
+                    "language": "text",
+                    "region": "text",
+                    "adult": "text",
+                    "min_date": "text",
+                    "min_score": "text"
+                }
             }, {
                 "name": "airing_today",
                 "description": "Get and email with the airing today tv shows [Google account required]",
