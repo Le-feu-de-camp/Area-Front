@@ -8,4 +8,5 @@ Rails.application.reloader.to_prepare do
   RouterReaction.resolve(command: LikePlaylistReactionCommand, handler: LikePlaylistReactionCommandHandler.new)
   RouterReaction.resolve(command: UpcomingReactionCommand, handler: UpcomingReactionCommandHandler.new)
   RouterReaction.resolve(command: DiscoverMovieReactionCommand, handler: DiscoverMovieReactionCommandHandler.new)
+  RouterReaction.resolve(command: DailyPhotoMailReactionCommand, handler: DailyPhotoMailReactionCommandHandler.new)
 end
