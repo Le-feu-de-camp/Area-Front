@@ -1,30 +1,63 @@
-// import { AiOutlineSave } from "react-icons/ai"
+import { useState, useEffect } from "react"
+import { useGoogleLogin } from "@react-oauth/google";
 
 import SettingsNavBar from "./SettingsNavBar"
 import Container from "../Tools/Container"
 import SwitchTheme from "../Tools/SwitchTheme"
+import AXIOS from "../Tools/Client"
+import LogoutUser from "../Authentification/LogOut"
 
 function APIPage() {
     SwitchTheme();
 
-    const SPOTIFY_CLIENT_ID = "d89d9e6d83484fc48fff9bc6791371c0"
     var url = localStorage.getItem("platform") === "mobile" ? "file:///android_asset/www/index.html" : "http://" + window.location.href.split("/")[2]
+    var token = "Bearer " + localStorage.getItem("token");
+    var user_url = localStorage.getItem("url") + "/current_user";
+    const [spotifyText, setSpotifyText] = useState("Login with Spotify");
+    const [googleText, setGoogleText] = useState("Login with Google");
+
+    useEffect(() => {
+        AXIOS.get(user_url, { headers: { Authorization: token } })
+            .then(function (res) {
+                if (res.data.spotify_token !== null) {
+                    setSpotifyText("Logout from Spotify");
+                }
+            })
+    }, [spotifyText, token, user_url])
+
+    function logoutSpotify() {
+        var logout_url = localStorage.getItem("url") + `/users/spotify_token_delete`;
+
+        AXIOS.post(logout_url, { headers: { Authorization: token } })
+            .then((res) => { console.log("hello"); setSpotifyText("Login with Spotify") })
+            .catch((err) => console.log(err))
+    }
+
+    const googleLogin = useGoogleLogin({
+        onSuccess: tokenResponse => {
+            console.log(tokenResponse);
+            setGoogleText("Logout from Google");
+        },
+        flow: 'auth-code',
+        scope: `https://www.googleapis.com/auth/gmail.modify`,
+        onError: error => Error({ "res": error }),
+    });
 
     return (
         <>
-        <SettingsNavBar currentPage="API" />
-        <div className="content large">
-            <Container type="large" key="Spotify">
-                <a  className="spotify" href={`https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${url}&response_type=code&scope=user-library-read,playlist-modify-public,playlist-modify-private,user-read-private,user-read-email`}>Login with Spotify</a>
-            </Container>
+            <SettingsNavBar currentPage="API" />
+            <div className="content large">
+                <Container type="large" key="Spotify">
+                    {
+                        (spotifyText === "Login with Spotify") ? <a className="spotify" href={`https://accounts.spotify.com/authorize?client_id=${process.env.SPOTIFY_CLIENT_ID}&redirect_uri=${url}&response_type=code&scope=user-library-read,playlist-modify-public,playlist-modify-private,user-read-private,user-read-email`}>{spotifyText}</a>
+                            : <button className="spotify spotify-button" onClick={() => { logoutSpotify() }}>{spotifyText}</button>
+                    }
+                </Container>
 
-            {/* <Container type="large" key="Google">
-                <div className="column row-2 border">
-                    <div>Google</div>
-                </div>
-                <button onClick={() => { console.log("google") }} className="btnBig"><AiOutlineSave /></button>
-            </Container> */}
-        </div>
+                <Container type="large" key="Google">
+                    <button className="google-button" onClick={() => { (googleText === "Login with Google") ? googleLogin() : LogoutUser() }}>{googleText}</button>
+                </Container>
+            </div>
         </>
     );
 }

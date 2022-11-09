@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-// import { AiOutlineTwitter as TwitterLogo } from "react-icons/ai"
 import { ReactComponent as GoogleLogo } from "../images/google-icon.svg"
 import { Navigate, useNavigate } from "react-router-dom"
 import { useGoogleLogin } from "@react-oauth/google";
