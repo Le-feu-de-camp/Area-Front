@@ -44,9 +44,13 @@ function LoginForm() {
     return (
         <>
             <form className="form">
-                <input className="fieldFormat" id="email" type="email" placeholder="Email" required />
+                <div className="custom-input">
+                    <input className="fieldFormat" id="email" type="email" placeholder="Email" required />
+                </div>
                 <PasswordInput className="fieldFormat" status="error" id="password" type="password" placeholder="Password" required />
-                <input className="fieldFormat" type="text" id="server" placeholder="Server URL" style={localStorage.getItem("platform") === "web" ? { display: "none" } : { display: "flex" }} required />
+                <div className="custom-input">
+                    <input className="fieldFormat" type="text" id="server" placeholder="Server URL" style={localStorage.getItem("platform") === "web" ? { display: "none" } : { display: "flex" }} required />
+                </div>
             </form>
             <button className="box buttonFormat" onClick={SetLoginValues}>Login</button>
         </>
@@ -84,12 +88,16 @@ function Login() {
             <div className="authContainer">
                 <ButtonNavBar active="Login" classPicked="activeButton" dark={localStorage.getItem("theme") === "theme-dark" ? true : false} />
                 <LoginForm></LoginForm>
-                <div className="subtitle">Or continue with</div>
-                <div>
-                    <button className="socialNetworks" onClick={googleLogin}>
-                        <GoogleLogo />
-                    </button>
-                </div>
+                {
+                    localStorage.getItem("platform") === "web" ?
+                    <><div className="subtitle">Or continue with</div>
+                    <div>
+                        <button className="socialNetworks" onClick={googleLogin}>
+                            <GoogleLogo />
+                        </button>
+                    </div></>
+                    : <></>
+                }
             </div>
         </div>
     );

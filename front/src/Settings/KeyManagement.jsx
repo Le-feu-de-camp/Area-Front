@@ -2,13 +2,21 @@
 
 import SettingsNavBar from "./SettingsNavBar"
 import Container from "../Tools/Container"
-import SwitchTheme from "../Tools/SwitchTheme"
 
 function APIPage() {
-    SwitchTheme();
-
     const SPOTIFY_CLIENT_ID = "d89d9e6d83484fc48fff9bc6791371c0"
     var url = localStorage.getItem("platform") === "mobile" ? "file:///android_asset/www/index.html" : "http://" + window.location.href.split("/")[2]
+
+    if (localStorage.getItem("platform") === "web") return ( 
+        <>
+        <SettingsNavBar currentPage="API" />
+        <div className="content large">
+            <Container type="biggerContainer fact">
+                Please use the web version to connect all your accounts.
+            </Container>
+        </div>
+        </>
+     )
 
     return (
         <>

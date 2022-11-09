@@ -5,12 +5,10 @@ import AXIOS from "../Tools/Client"
 import Load from "../Tools/Load"
 import { Error } from "../Tools/Notif"
 import SettingsNavBar from "./SettingsNavBar"
-import SwitchTheme from "../Tools/SwitchTheme"
 
 import '../css/settings.css'
 
 function DisplayUserInfos({ data }) {
-
     return (
         <Container>
             <div className="pageTitle">
@@ -33,7 +31,6 @@ function DisplayUserInfos({ data }) {
 }
 
 function UserProfil() {
-    SwitchTheme();
     const [element, setElement] = useState(<Load />)
 
     useEffect(() => {

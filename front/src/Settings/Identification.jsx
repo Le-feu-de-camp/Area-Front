@@ -7,7 +7,6 @@ import Load from "../Tools/Load"
 import { Error } from "../Tools/Notif"
 import { SetNotif } from "../Tools/Notif"
 import SettingsNavBar from "./SettingsNavBar"
-import SwitchTheme from "../Tools/SwitchTheme";
 import PasswordInput from "../Tools/Password";
 
 function UserIdentification({ data, token }) {
@@ -78,7 +77,6 @@ function UserIdentification({ data, token }) {
 }
 
 function Identification() {
-    SwitchTheme();
     const [element, setElement] = useState(<Load />)
 
     useEffect(() => {
