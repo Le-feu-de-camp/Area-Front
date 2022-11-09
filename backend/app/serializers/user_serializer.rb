@@ -42,7 +42,8 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :email, :admin, :background, :songs, :picture, :google_token, :spotify_token
+
+attributes :id, :first_name, :last_name, :email, :admin, :background, :songs, :picture, :google_token, :spotify_token
 
   def google_token
     !object.google_token.nil?

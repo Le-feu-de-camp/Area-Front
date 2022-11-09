@@ -76,6 +76,12 @@ class UsersController < ApplicationController
     render json: { message: "Logged" }
   end
 
+  # POST /users/spotify_token_delete
+  def spotify_token_delete
+    current_user.delete_spotify_token
+    render json: { message: "Spotify token deleted." }, status: :ok
+  end
+
   private
     def google_params
       params.require(:user).permit(:code, :redirect_uri)
