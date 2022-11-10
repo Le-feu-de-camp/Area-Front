@@ -123,6 +123,14 @@
                     "options": {}
                 }
             ]
+        }, {
+            "name": "cat",
+            "actions": [],
+            "reactions": [{
+                "name": "cat",
+                "description": "Surprise",
+                "options": {}
+            }]
         }]
     }
 }

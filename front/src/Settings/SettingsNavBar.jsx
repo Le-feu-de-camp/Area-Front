@@ -1,12 +1,14 @@
 
 import React from "react"
 import { NavItem } from "../Tools/NavItem"
+import SwitchTheme from "../Tools/SwitchTheme"
 
 import { AiOutlineArrowLeft, AiOutlineUser, AiFillFormatPainter, AiOutlineKey, AiFillIdcard } from "react-icons/ai"
 
 import "../css/navbar.css"
 
 function SettingsNavBar({ currentPage }) {
+    SwitchTheme();
     return (
         <div className="navbar">
 

@@ -7,6 +7,7 @@
 #  id                     :bigint           not null, primary key
 #  admin                  :boolean          default(FALSE), not null
 #  background             :string
+#  cat                    :jsonb
 #  email                  :string           not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null

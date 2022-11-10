@@ -5,6 +5,7 @@
 #  id                     :bigint           not null, primary key
 #  admin                  :boolean          default(FALSE), not null
 #  background             :string
+#  cat                    :jsonb
 #  email                  :string           not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
@@ -42,8 +43,7 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class UserSerializer < ActiveModel::Serializer
-
-attributes :id, :first_name, :last_name, :email, :admin, :background, :songs, :picture, :google_token, :spotify_token
+  attributes :id, :first_name, :last_name, :email, :admin, :background, :songs, :picture, :google_token, :spotify_token, :cat
 
   def google_token
     !object.google_token.nil?

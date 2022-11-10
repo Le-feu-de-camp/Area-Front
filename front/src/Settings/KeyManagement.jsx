@@ -3,18 +3,26 @@ import { useGoogleLogin } from "@react-oauth/google";
 
 import SettingsNavBar from "./SettingsNavBar"
 import Container from "../Tools/Container"
-import SwitchTheme from "../Tools/SwitchTheme"
 import AXIOS from "../Tools/Client"
 import Load from "../Tools/Load"
 
 function APIPage() {
-    SwitchTheme();
-
     var url = localStorage.getItem("platform") === "mobile" ? "file:///android_asset/www/index.html" : "http://" + window.location.href.split("/")[2]
     var token = "Bearer " + localStorage.getItem("token");
     var user_url = localStorage.getItem("url") + "/current_user";
     const [spotifyText, setSpotifyText] = useState("Login with Spotify");
     const [googleText, setGoogleText] = useState("Login with Google");
+
+    if (localStorage.getItem("platform") !== "web") return ( 
+        <>
+        <SettingsNavBar currentPage="API" />
+        <div className="content large">
+            <Container type="biggerContainer fact">
+                Please use the web version to connect all your accounts.
+            </Container>
+        </div>
+        </>
+     )
 
     useEffect(() => {
         AXIOS.get(user_url, { headers: { Authorization: token } })
