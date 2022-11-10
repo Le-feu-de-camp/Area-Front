@@ -95,12 +95,12 @@ class User < ApplicationRecord
   end
 
   def request_token_from_google(params)
-    result = HTTParty.post("https://accounts.google.com/o/oauth2/token", body: google_body(params[:code]))
-    puts google_body(params[:code])
+    result = HTTParty.post("https://accounts.google.com/o/oauth2/token",
+body: google_body(params[:code], params[:redirect_uri]))
     if result["error"]
       return { error: result["error_description"] }
     end
-    self.google_refresh_token = result["refresh_token"]
+    self.google_token = result["refresh_token"]
     self.save
     { message: "Google token added to user" }
   end
@@ -148,6 +148,14 @@ class User < ApplicationRecord
     user
   end
 
+  def delete_token(name)
+    self.send("#{name}_token=", nil)
+    if self.save
+      { message: "#{name.capitalize} token deleted" }
+    else
+      { error: "Error with #{name} token" }
+    end
+  end
 
   private
     def self.google_refresh_token_body(refresh_token)
@@ -164,6 +172,14 @@ class User < ApplicationRecord
     end
 
     def self.google_body(code, redirect_uri)
+      { code: code,
+        client_id: ENV["GOOGLE_CLIENT_ID"],
+        client_secret: ENV["GOOGLE_CLIENT_SECRET"],
+        grant_type: "authorization_code",
+        redirect_uri: redirect_uri }
+    end
+
+    def google_body(code, redirect_uri)
       { code: code,
         client_id: ENV["GOOGLE_CLIENT_ID"],
         client_secret: ENV["GOOGLE_CLIENT_SECRET"],

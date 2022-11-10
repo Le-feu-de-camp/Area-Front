@@ -11,9 +11,13 @@ import '../css/settings.css'
 function DisplayUserInfos({ data }) {
     return (
         <Container>
-            <div className="pageTitle">
-                {data.first_name + "'s Account"}
-            </div>
+            {
+                data.picture === null ?
+                    <div className="pageTitle">
+                        {data.first_name + "'s Account"}
+                    </div>
+                    : <img className="userProfil" src={data.picture} alt="" />
+            }
             <div className="column row-2 border margin">
                 <div>First name</div>
                 <input type="text" readOnly="readonly" placeholder={data.first_name} />
