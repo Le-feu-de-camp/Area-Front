@@ -19,6 +19,8 @@ class AtHourActionCommandHandler
 
     resultat = target_time < current_time
 
+    Widget_to_disable.append(attributs[:widget_id]) if resultat
+
     resultat
   end
 end

@@ -7,7 +7,7 @@ function APIPage() {
     const SPOTIFY_CLIENT_ID = "d89d9e6d83484fc48fff9bc6791371c0"
     var url = localStorage.getItem("platform") === "mobile" ? "file:///android_asset/www/index.html" : "http://" + window.location.href.split("/")[2]
 
-    if (localStorage.getItem("platform") === "web") return ( 
+    if (localStorage.getItem("platform") !== "web") return ( 
         <>
         <SettingsNavBar currentPage="API" />
         <div className="content large">
