@@ -86,7 +86,6 @@ function APIPage() {
     }
 
     const Spotify = () => {
-        console.log("here");
         const [element, setElement] = useState(<Load />);
 
         useEffect(() => {
