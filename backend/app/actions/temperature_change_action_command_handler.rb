@@ -5,7 +5,7 @@ class TemperatureChangeActionCommandHandler
   end
 
   def call(attributes, mocked_response = nil)
-    puts "Temperature Change Command Handler"
+    puts "Temperature Change Command Handler" unless Rails.env.test?
 
     begin
       url = "https://api.open-meteo.com/v1/forecast?latitude=#{attributes[:latitude]}&longitude=#{attributes[:longitude]}&current_weather=true"
@@ -21,7 +21,7 @@ class TemperatureChangeActionCommandHandler
 
 
     if result
-      puts "Temperature Change: #{result}"
+      puts "Temperature Change: #{current_temp}" unless Rails.env.test?
       action = Action.find(attributes[:action_id])
       action.options["last_temp"] = current_temp.to_s
       action.save

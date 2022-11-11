@@ -16,9 +16,9 @@ class TemperatureChangeActionCommand
     def current_temp(mocked_response = nil)
       url = "https://api.open-meteo.com/v1/forecast?latitude=#{@latitude}&longitude=#{@longitude}&current_weather=true"
       weather_info = mocked_response || HTTParty.get(url)
-      return weather_info["current_weather"]["temperature"]
+      weather_info["current_weather"]["temperature"]
     rescue NoMethodError
-      puts "Error: OpenMeteo return null"
-      return nil
+      puts "Error: OpenMeteo return null" unless Rails.env.test?
+      nil
     end
 end
