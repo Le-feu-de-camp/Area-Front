@@ -29,7 +29,7 @@
         }, {
             "name": "weather",
             "actions": [{
-                "name": "temparature_change",
+                "name": "temperature_change",
                 "description": "When the temperature outside change ...",
                 "options": {
                     "latitude": "text",
