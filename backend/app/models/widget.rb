@@ -25,7 +25,8 @@ class Widget < ApplicationRecord
   after_create :capitalize_name
 
   # Validations
-  validates :name, { uniqueness: { case_sensitive: false }, length: { minimum: 1 } }
+  validates :name, { length: { minimum: 1 } }
+  validate :name_available_for_this_user?
 
   # Associations
   belongs_to :user
@@ -46,6 +47,16 @@ class Widget < ApplicationRecord
   end
 
   private
+    def name_available_for_this_user?
+      User.find(self.user_id).widgets.each do |widget|
+        if widget.name.downcase == self.name.downcase
+          errors.add(:errors, "Widget name already used")
+          return false
+        end
+      end
+      true
+    end
+
     def capitalize_name
       self.name.capitalize!
       self.save
