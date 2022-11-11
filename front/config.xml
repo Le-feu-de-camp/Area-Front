@@ -10,7 +10,7 @@
     <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    
+
     <access origin="*" />
     <allow-navigation href="*"/>
 
@@ -24,6 +24,9 @@
         <allow-intent href="*" />
         <allow-navigation href="*"/>
         <access origin="*" />
+        <feature name="InAppBrowser">
+            <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+        </feature>
     </edit-config>
     </platform>
 </widget>
