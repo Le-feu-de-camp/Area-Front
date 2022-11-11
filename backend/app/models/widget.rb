@@ -26,6 +26,7 @@ class Widget < ApplicationRecord
 
   # Validations
   validates :name, { length: { minimum: 1 } }
+  validates :active, inclusion: { in: [true, false] }
   validate :name_available_for_this_user?
 
   # Associations
@@ -37,19 +38,17 @@ class Widget < ApplicationRecord
   scope :activated, -> { where(active: true) }
 
   def disactivate
-    self.active = false
-    self.save
+    update(active: false)
   end
 
   def activate
-    self.active = true
-    self.save
+    update(active: true)
   end
 
   private
     def name_available_for_this_user?
       User.find(self.user_id).widgets.each do |widget|
-        if widget.name.downcase == self.name.downcase
+        if widget.name.downcase == self.name.downcase && widget != self
           errors.add(:errors, "Widget name already used")
           return false
         end

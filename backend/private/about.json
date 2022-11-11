@@ -52,7 +52,7 @@
                 "options": {}
             }],
             "reactions": [{
-                "name": "send_email",
+                "name": "send_mail",
                 "description": "An email is sent to the selected person/people [Google account required]",
                 "options": {
                     "receiver": "text",
