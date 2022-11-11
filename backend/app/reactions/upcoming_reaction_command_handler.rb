@@ -26,10 +26,9 @@ class UpcomingReactionCommandHandler
 
     date = DateTime.now.strftime("%d/%m/%Y")
 
-    user = User.find(attributes[:user_id])
-    gmail = GmailClient.new(user.google_token, user.email)
+    gmail = GmailClient.new(attributes[:token], attributes[:email])
     gmail.send_mail(
-      user.email,
+      attributes[:email],
       "AREA Upcoming Movies (#{date})",
       result
     )
