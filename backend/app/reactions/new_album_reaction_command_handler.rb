@@ -5,24 +5,22 @@ class NewAlbumReactionCommandHandler
   end
 
   def call(attributes)
-    puts "New Album Command Handler"
+    puts "New Album Command Handler" unless Rails.env.test?
 
-    begin
-      token_info = HTTParty.post(
-        "https://accounts.spotify.com/api/token",
-        "body": "grant_type=client_credentials&client_id=#{ENV["SPOTIFY_CLIENT_ID"]}&client_secret=#{ENV["SPOTIFY_CLIENT_SECRET"]}"
-      )
-    rescue NoMethodError
+    token_info = HTTParty.post(
+      "https://accounts.spotify.com/api/token",
+      "body": "grant_type=client_credentials&client_id=#{ENV["SPOTIFY_CLIENT_ID"]}&client_secret=#{ENV["SPOTIFY_CLIENT_SECRET"]}"
+    )
+    unless token_info["access_token"]
       puts "Error: Spotify return null"
       return false
     end
 
-    begin
-      songs = HTTParty.get(
-        "https://api.spotify.com/v1/browse/new-releases?limit=5",
-        "headers": {"Authorization": "Bearer #{token_info["access_token"]}"}
-      )
-    rescue NoMethodError
+    songs = HTTParty.get(
+      "https://api.spotify.com/v1/browse/new-releases?limit=5",
+      "headers": { "Authorization": "Bearer #{token_info["access_token"]}" }
+    )
+    unless songs["albums"]["items"]
       puts "Error: Spotify return null"
       return false
     end
@@ -39,12 +37,7 @@ class NewAlbumReactionCommandHandler
 
     user = User.find(attributes[:user_id])
 
-    # if user.songs is null or undefined
-    if user.songs.nil?
-      user.songs = { "albums": result }
-    else
-      user.songs["albums"] = result
-    end
+    user.songs["albums"] = result
     user.save
   end
 end

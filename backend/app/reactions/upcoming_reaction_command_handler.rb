@@ -5,11 +5,10 @@ class UpcomingReactionCommandHandler
   end
 
   def call(attributes)
-    puts "Upcoming Movies Command Handler"
+    puts "Upcoming Movies Command Handler" unless Rails.env.test?
 
-    begin
-      movies = HTTParty.get("https://api.themoviedb.org/3/movie/upcoming?api_key=#{ENV["MOVIE_DB_KEY"]}&language=fr-FR&page=1&region=FR")
-    rescue NoMethodError
+    movies = HTTParty.get("https://api.themoviedb.org/3/movie/upcoming?api_key=#{ENV["MOVIE_DB_KEY"]}&language=fr-FR&page=1&region=FR")
+    unless movies["results"]
       puts "Error: The Movie DB return null"
       return false
     end
@@ -34,6 +33,5 @@ class UpcomingReactionCommandHandler
       "AREA Upcoming Movies (#{date})",
       result
     )
-
   end
 end
