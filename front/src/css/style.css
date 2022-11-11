@@ -409,6 +409,26 @@ a:active {
     cursor: pointer;
     color: var(--navbar-color) !important;
     font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.google-button {
+    background: #4285F4;
+    text-align: center;
+    padding: .5rem;
+    border-radius: .7rem;
+    transition-duration: .3s;
+    box-shadow: 0 .5rem .5rem 0 rgba(0, 0, 0, 0.2);
+    width: 100%;
+    cursor: pointer;
+    color: var(--navbar-color) !important;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: none;
+}
+
+.spotify-button {
+    border: none;
 }
 
 .spotify:hover {

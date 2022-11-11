@@ -27,8 +27,8 @@ function Home() {
                 var widgets = res.data.widgets.map((w) => { return <Widget key={GenerateKey()} w={w} /> })
                 setElement(
                     <>
-                        <Background url={res?.data?.cat["picture"]} />
-                        <Text text={res?.data?.cat["fact"]} />
+                        { res?.data?.cat ?  <Background url={res?.data?.cat["picture"]} /> : <></> }
+                        { res?.data?.cat ?  <Text text={res?.data?.cat["fact"]} /> : <></> }
                         <Background url={res?.data?.background} />
                         <AlbumsShelf albums={res?.data?.songs} />
                         {widgets}

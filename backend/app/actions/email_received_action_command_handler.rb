@@ -5,7 +5,7 @@ class EmailReceivedActionCommandHandler
   end
 
   def call(attributs)
-    puts "Email Received Command Handler"
+    puts "Email Received Command Handler" unless Rails.env.test?
     gmail = GmailClient.new(attributs[:token], attributs[:email])
     info = gmail.user_info
     current_number_of_mail_received = info["messagesTotal"]
