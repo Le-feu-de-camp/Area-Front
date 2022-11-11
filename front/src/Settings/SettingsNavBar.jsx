@@ -22,7 +22,7 @@ function SettingsNavBar({ currentPage }) {
                 <NavItem icon={<AiFillIdcard />} name="Identification" classes={`${currentPage === "Identification" ? "active" : ""}`} link="/identification" />
                 {
                     localStorage.getItem("platform") === "web" ? <NavItem icon={<AiOutlineKey />} name="Services" classes={`${currentPage === "API" ? "active" : ""}`} link="/keys" />
-                        : <NavButton icon={<AiOutlineKey />} name="Services" classes={`${currentPage === "API" ? "active" : ""}`} fun={() => { OpenBrowser(localStorage.getItem("url").slice(0, -1) + "1/#/keys") }} />
+                        : <NavButton icon={<AiOutlineKey />} name="Services" classes={`${currentPage === "API" ? "active" : ""}`} fun={() => { OpenBrowser(localStorage.getItem("url").slice(0, -1) + "1") }} />
                 }
                 <NavItem icon={<AiFillFormatPainter />} name="Appearance" classes={`${currentPage === "Appearance" ? "active" : ""}`} link="/appearance" />
                 <NavItem icon={<AiOutlineArrowLeft />} classes={`right ${currentPage === "Home" ? "active" : ""}`} link="/home" />

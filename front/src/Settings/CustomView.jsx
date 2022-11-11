@@ -1,7 +1,7 @@
 export default function OpenBrowser(url) {
-
-    var target = "_self"; // _system
-    var ref = window.open(url, target, "fullscreen=no");
+    var target = "_blank"
+    var options = "fullscreen=no,location=yes,clearsessioncache=yes,clearcache=yes"
+    var ref = window.open(url, target, options);
 
     ref.addEventListener("exit", exitCallback);
 
