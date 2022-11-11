@@ -10,12 +10,9 @@ class WidgetToDisable
   end
 
   def call
-    puts "WidgetToDisable #call"
     @liste.each do |widget_id|
       widget = Widget.find(widget_id)
-      puts widget.inspect
       widget.disactivate
-      puts Widget.find(widget_id).inspect
     end
 
     @liste.clear
