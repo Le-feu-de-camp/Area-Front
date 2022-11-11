@@ -4,7 +4,7 @@ class AtHourActionCommandHandler
   def initialize
   end
 
-  def call(attributes, mocked_response)
+  def call(attributes, mocked_response = nil)
     puts "At Hour Command Handler" unless Rails.env.test?
 
     begin
