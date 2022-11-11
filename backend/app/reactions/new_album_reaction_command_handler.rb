@@ -4,22 +4,12 @@ class NewAlbumReactionCommandHandler
   def initialize
   end
 
-  def call(attributes)
+  def call(attributes, spotify_service = SpotifyClient)
     puts "New Album Command Handler" unless Rails.env.test?
 
-    token_info = HTTParty.post(
-      "https://accounts.spotify.com/api/token",
-      "body": "grant_type=client_credentials&client_id=#{ENV["SPOTIFY_CLIENT_ID"]}&client_secret=#{ENV["SPOTIFY_CLIENT_SECRET"]}"
-    )
-    unless token_info["access_token"]
-      puts "Error: Spotify return null"
-      return false
-    end
+    spotify = spotify_service.new(nil)
 
-    songs = HTTParty.get(
-      "https://api.spotify.com/v1/browse/new-releases?limit=5",
-      "headers": { "Authorization": "Bearer #{token_info["access_token"]}" }
-    )
+    songs = spotify.new_release
     unless songs["albums"]["items"]
       puts "Error: Spotify return null"
       return false
