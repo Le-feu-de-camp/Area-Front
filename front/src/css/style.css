@@ -360,6 +360,10 @@ body {
     padding-bottom: .2rem;
 }
 
+.widget .containerContent::-webkit-scrollbar {
+    display: none;
+}
+
 .tagTitle {
     padding-right: .5rem;
     font-weight: bold;

@@ -21,8 +21,8 @@
                 "name": "at_hour",
                 "description": "At such time ...",
                 "options": {
-                    "hour": "hour",
-                    "city": "city"
+                    "hour": "time",
+                    "location": "location"
                 }
             }],
             "reactions": []
@@ -32,15 +32,15 @@
                 "name": "temparature_change",
                 "description": "When the temperature outside change ...",
                 "options": {
-                    "latitude": "text",
-                    "longitude": "text"
+                    "latitude": "location",
+                    "longitude": "location"
                 }
             }, {
                 "name": "weather_change",
                 "description": "When the weather outside change ...",
                 "options": {
-                    "latitude": "text",
-                    "longitude": "text"
+                    "latitude": "location",
+                    "longitude": "location"
                 }
             }],
             "reactions": []
@@ -84,10 +84,6 @@
                     "min_date": "text",
                     "min_score": "text"
                 }
-            }, {
-                "name": "airing_today",
-                "description": "Get and email with the airing today tv shows [Google account required]",
-                "options": {}
             }]
         }, {
             "name": "nasa",
