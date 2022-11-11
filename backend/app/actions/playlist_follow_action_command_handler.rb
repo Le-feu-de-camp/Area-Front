@@ -4,19 +4,13 @@ class PlaylistFollowActionCommandHandler
   def initialize
   end
 
-  def call(attributes)
+  def call(attributes, spotify_service = SpotifyClient)
     puts "Playlist Follow Command Handler" unless Rails.env.test?
 
-    begin
-      token_info = HTTParty.post(
-        "https://accounts.spotify.com/api/token",
-        "body": "grant_type=client_credentials&client_id=#{ENV["SPOTIFY_CLIENT_ID"]}&client_secret=#{ENV["SPOTIFY_CLIENT_SECRET"]}"
-      )
-      playlist = HTTParty.get(
-        "https://api.spotify.com/v1/playlists/#{attributes[:playlist]}",
-        "headers": { "Authorization": "Bearer #{token_info["access_token"]}" }
-      )
-    rescue NoMethodError
+    spotify = spotify_service.new(nil)
+    playlist = spotify.playlist_info
+
+    unless playlist["followers"]
       puts "Error: Spotify return null"
       return false
     end
