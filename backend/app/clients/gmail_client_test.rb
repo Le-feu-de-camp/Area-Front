@@ -29,4 +29,6 @@ Content-type: text/html;charset=utf-8
 
     @send_mail_request += 1
   end
+
+  attr_reader :user_info_request, :send_mail_request, :last_mail
 end

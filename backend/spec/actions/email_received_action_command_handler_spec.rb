@@ -7,7 +7,7 @@ RSpec.describe EmailReceivedActionCommandHandler do
     let(:widget) { create(:widget, user_id: user.id) }
     let(:action) { create(:action, id: 1, widget_id: widget.id) }
 
-    context "when user have token and email valid" do
+    context "when user have token" do
       let(:token) { FFaker::Internet.password }
       let(:user) { create(:user, email: email, google_token: token) }
 
