@@ -4,7 +4,6 @@ class DailyPhotoMailReactionCommand
   def initialize(options)
     @reaction_id = options["reaction_id"]
     @user_id = Reaction.find(@reaction_id).action.widget.user.id
-    @email = options["email"]
   end
 
   def to_h
