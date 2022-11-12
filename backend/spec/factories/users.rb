@@ -42,6 +42,7 @@ FactoryBot.define do
     first_name { FFaker::NameFR.first_name }
     last_name { FFaker::NameFR.last_name }
     email { FFaker::Internet.unique.email }
+    google_token { FFaker::Internet.password }
     password { "123456" }
 
     factory :user_admin do
