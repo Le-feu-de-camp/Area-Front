@@ -34,7 +34,23 @@ class DiscoverMovieReactionCommandHandler
     gmail.send_mail(
       user.email,
       "AREA Movie Recommandation (#{date})",
-      movie
+      "<!doctype html>
+<html>
+  <head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <title>Simple Transactional Email</title>
+  </head>
+  <body>
+    <div style='text-align: center;'>
+      <h1><u>#{movie["title"]}</u></h1>
+      <i>#{movie["release_date"]}</i>
+      <p>#{movie["overview"]}</p>
+      <img src='https://image.tmdb.org/t/p/w500#{movie["poster_path"]}' height='300px'/><br/>
+      <a href='https://www.themoviedb.org/movie/#{movie["id"]}' target='_blank'>Plus d'infos</a>
+    </div>
+  </body>
+</html>"
     )
   end
 end
