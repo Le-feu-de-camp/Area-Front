@@ -12,6 +12,7 @@ import APIPage from "./Settings/KeyManagement"
 import Admin from "./Pages/Admin"
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import AXIOS from "./Tools/Client"
+import { Error, SetNotif } from './Tools/Notif.jsx'
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
                     }
 
                     AXIOS.post(url_target, access_token, { headers: { Authorization: token } })
+                        .then(function (res) { SetNotif({ "title": "Infos", "body": "Connection with Spotify completed" }) })
                         .catch((err) => Error(err))
                 }
             })

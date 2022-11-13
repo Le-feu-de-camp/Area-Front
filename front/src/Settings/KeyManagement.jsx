@@ -5,6 +5,7 @@ import SettingsNavBar from "./SettingsNavBar"
 import Container from "../Tools/Container"
 import AXIOS from "../Tools/Client"
 import Load from "../Tools/Load"
+import { Error, SetNotif } from "../Tools/Notif"
 
 function APIPage() {
     var url = localStorage.getItem("platform") === "mobile" ? "file:///android_asset/www/index.html" : "http://" + window.location.href.split("/")[2]
@@ -35,6 +36,7 @@ function APIPage() {
         AXIOS.post(logout_url, service, { headers: { Authorization: token } })
             .then((res) => {
                 setSpotifyText("Login with Spotify");
+                SetNotif({ "title": "Infos", "body": "Logout from Spotify completed" })
             })
             .catch((err) => Error(err))
     }
@@ -52,6 +54,7 @@ function APIPage() {
             }
             setGoogleText("Logout from Google");
             AXIOS.post(url_target, access_token, { headers: { Authorization: token } })
+                .then(function (res) { SetNotif({ "title": "Infos", "body": "Connection with Google completed" }) })
                 .catch((err) => Error(err))
         },
         flow: 'auth-code',
@@ -70,6 +73,7 @@ function APIPage() {
         AXIOS.post(logout_url, service, { headers: { Authorization: token } })
             .then((res) => {
                 setGoogleText("Login with Google")
+                SetNotif({ "title": "Infos", "body": "Logout from Google completed" })
             })
             .catch((err) => Error(err))
     }
