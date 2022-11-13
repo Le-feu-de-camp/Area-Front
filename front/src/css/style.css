@@ -229,7 +229,7 @@ body {
     color: var(--accent-color);
     position: absolute;
     background-color: var(--navbar-light-color);
-    top: -1.3rem;
+    top: -1.35rem;
     padding-left: .6rem;
     padding-right: .6rem;
     font-size: 1.2rem;
@@ -437,6 +437,25 @@ a:active {
 
 .spotify:hover {
     filter: brightness(1.4);
+}
+
+.row-2-text {
+    color: var(--input-text);
+    background: var(--input-color);
+    border: none;
+    padding: .8rem;
+    margin: .5rem;
+    width: 97%;
+    border-radius: .5rem;
+    cursor: -moz-grab;
+}
+
+.border.red {
+    border: solid var(--error-text);
+}
+
+.border.red div:first-child {
+    color: var(--error-text);
 }
 
 @media only screen and (max-width: 600px) {

@@ -27,6 +27,10 @@ if (window.cordova) {
         var index = url.indexOf("8081")
         url = url.substring(0, index - 1)
     }
+    if (window.location.href.includes("8082")) {
+        var index2 = url.indexOf("8082")
+        url = url.substring(0, index2 - 1)
+    }
     localStorage.setItem("url", `http://${url}:8080`)
     localStorage.setItem("platform", "web")
     startApp()
