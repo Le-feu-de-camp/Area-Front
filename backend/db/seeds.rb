@@ -37,7 +37,7 @@ if Action.count == 0
 end
 
 # Reactions
-reactions = [{ klass: "dayli_photo_bg", options: {}, action_id: Action.first.id }]
+reactions = [{ klass: "daily_photo_bg", options: {}, action_id: Action.first.id }]
 if Reaction.count == 0
   reactions.each do |reaction|
     Reaction.create!(klass: reaction[:klass], options: reaction[:options], action_id: reaction[:action_id])

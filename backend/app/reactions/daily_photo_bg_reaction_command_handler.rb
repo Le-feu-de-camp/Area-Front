@@ -4,7 +4,7 @@ class DailyPhotoBgReactionCommandHandler
   def initialize
   end
 
-  def call(attributes, mocked_response)
+  def call(attributes, mocked_response = nil)
     puts "Daily Photo Bg Command Handler" unless Rails.env.test?
 
     img_info = mocked_response || HTTParty.get("https://api.nasa.gov/planetary/apod?api_key=0kohlBRL0b1ymWbGae4GKifyolr5cZ66qLBrHb6j")

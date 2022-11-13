@@ -19,7 +19,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  songs                  :jsonb
+#  songs                  :jsonb            not null
 #  spotify_token          :string
 #  twitter_token          :string
 #  created_at             :datetime         not null
@@ -50,6 +50,7 @@ require "httparty"
 class User < ApplicationRecord
   # Callbacks
   before_destroy :destroy_widgets
+  before_create :init_songs
 
   # Validattions
   validates :email,
@@ -204,5 +205,9 @@ body: google_body(params[:code], params[:redirect_uri]))
 
     def destroy_widgets
       self.widgets.map(&:destroy)
+    end
+
+    def init_songs
+      self.songs = {}
     end
 end

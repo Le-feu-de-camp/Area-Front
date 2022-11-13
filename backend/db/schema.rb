@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_09_153935) do
     t.string "spotify_token"
     t.string "google_token"
     t.string "twitter_token"
-    t.jsonb "songs"
+    t.jsonb "songs", null: false
     t.string "picture"
     t.jsonb "cat"
     t.index ["email"], name: "index_users_on_email", unique: true
