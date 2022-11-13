@@ -19,7 +19,7 @@ class PlaylistFollowActionCommandHandler
     last_follow = attributes[:nb_follower].to_i
     result = current_follow != last_follow
 
-    puts "Follow Changed: #{result}" unless Rails.env.test? and !result
+    puts "Follow Changed: #{result}" if result and !Rails.env.test?
 
     action = Action.find(attributes[:action_id])
     action.options["nb_follower"] = current_follow.to_s

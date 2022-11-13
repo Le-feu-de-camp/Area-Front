@@ -26,7 +26,7 @@ RSpec.describe DailyPhotoMailReactionCommandHandler do
       it "changes the user's background" do
         command = DailyPhotoMailReactionCommand.new(options)
         handler = DailyPhotoMailReactionCommandHandler.new
-        expected_coded_mail = "RnJvbTogPHRlc3RAZW1haWwuY29tPgpUbzogPD4KU3ViamVjdDogQVJFQSBEYWlseSBOYXNhIFBpY3R1cmUKQ29udGVudC10eXBlOiB0ZXh0L2h0bWw7Y2hhcnNldD11dGYtOAoKPGltZyBzcmM9J2h0dHBzOi8vYXBvZC5uYXNhLmdvdi9hcG9kL2ltYWdlLzIyMTEvU3RhbkhvbmRhVExFLUlTUzExMDhhbm5vdGF0ZWQxMDI0LmpwZycgYWx0PSdOYXNhIERhaWx5IFBpY3R1cmUnLz4="
+        expected_coded_mail = "RnJvbTogPHRlc3RAZW1haWwuY29tPgogIFRvOiA8dGVzdEBlbWFpbC5jb20-CiAgU3ViamVjdDogQVJFQSBEYWlseSBOYXNhIFBpY3R1cmUKICBDb250ZW50LXR5cGU6IHRleHQvaHRtbDtjaGFyc2V0PXV0Zi04CgogIDxpbWcgc3JjPSdodHRwczovL2Fwb2QubmFzYS5nb3YvYXBvZC9pbWFnZS8yMjExL1N0YW5Ib25kYVRMRS1JU1MxMTA4YW5ub3RhdGVkMTAyNC5qcGcnIGFsdD0nTmFzYSBEYWlseSBQaWN0dXJlJy8-"
 
         expect {
           handler.call(command.to_h, gmail_service,

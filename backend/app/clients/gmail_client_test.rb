@@ -24,7 +24,7 @@ class GmailClientTest
   To: <#{to}>
   Subject: #{subject}
   Content-type: text/html;charset=utf-8
-  
+
   #{message}").tr("+/", "-_").delete("\n")
 
     @send_mail_request += 1

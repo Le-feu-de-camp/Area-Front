@@ -19,7 +19,7 @@ RSpec.describe SendMailReactionCommandHandler do
       it "has send a mail" do
         command = SendMailReactionCommand.new(options)
         handler = SendMailReactionCommandHandler.new
-        expected_coded_mail = "RnJvbTogPHRlc3RAZW1haWwuY29tPgpUbzogPHRlc3RAZW1haWwuY29tPgpTdWJqZWN0OiBTdWJqZWN0CkNvbnRlbnQtdHlwZTogdGV4dC9odG1sO2NoYXJzZXQ9dXRmLTgKCk1lc3NhZ2U="
+        expected_coded_mail = "RnJvbTogPHRlc3RAZW1haWwuY29tPgogIFRvOiA8dGVzdEBlbWFpbC5jb20-CiAgU3ViamVjdDogU3ViamVjdAogIENvbnRlbnQtdHlwZTogdGV4dC9odG1sO2NoYXJzZXQ9dXRmLTgKCiAgTWVzc2FnZQ=="
 
         expect { handler.call(command.to_h, gmail_service) }.to change(gmail_service, :send_mail_request).by(1)
         expect(gmail_service.last_mail).to eq(expected_coded_mail)
