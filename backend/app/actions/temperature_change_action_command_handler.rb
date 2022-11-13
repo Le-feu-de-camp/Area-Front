@@ -19,13 +19,11 @@ class TemperatureChangeActionCommandHandler
     last_temp = attributes[:last_temp].to_f
     result = current_temp != last_temp
 
+    puts "Temperature Change: #{current_temp}" unless Rails.env.test? and !result
 
-    if result
-      puts "Temperature Change: #{current_temp}" unless Rails.env.test?
-      action = Action.find(attributes[:action_id])
-      action.options["last_temp"] = current_temp.to_s
-      action.save
-    end
+    action = Action.find(attributes[:action_id])
+    action.options["last_temp"] = current_temp.to_s
+    action.save
 
     result
   end

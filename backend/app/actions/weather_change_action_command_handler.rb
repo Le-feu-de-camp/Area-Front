@@ -19,13 +19,11 @@ class WeatherChangeActionCommandHandler
 
     result = current_weather != last_weather
 
+    puts "Weather Changed: #{result}" unless Rails.env.test? and !result
 
-    if result
-      puts "Weather Changed: #{result}" unless Rails.env.test?
-      action = Action.find(attributes[:action_id])
-      action.options["last_weather"] = current_weather.to_s
-      action.save
-    end
+    action = Action.find(attributes[:action_id])
+    action.options["last_weather"] = current_weather.to_s
+    action.save
 
     result
   end

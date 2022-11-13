@@ -19,7 +19,7 @@ class NewEpisodeActionCommandHandler
       (len-1).times do |i|
         if update["changes"][i]["key"] == "season"
           puts "New episode"
-          Widget_to_disable.append(attributes[:widget_id]) if resultat
+          Widget_to_disable.append(attributes[:widget_id])
           return true
         end
       end

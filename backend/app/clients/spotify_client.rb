@@ -34,7 +34,7 @@ class SpotifyClient
     date = DateTime.now.strftime("%d/%m/%Y")
 
     playlist = HTTParty.post(
-      "https://api.spotify.com/v1/users/#{user_id}/playlists",
+      "https://api.spotify.com/v1/users/#{user_id['id']}/playlists",
       body: {
         name: "Favourite titles #{date}",
         description: "All your favourite music (#{date}). Generated with AREA",

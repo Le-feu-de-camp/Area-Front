@@ -25,8 +25,7 @@ function Register() {
                 "last_name": document.getElementById("last_name").value,
                 "email": document.getElementById("email").value,
                 "password": document.getElementById("password").value,
-                "password_confirmation": document.getElementById("password_confirm").value,
-                "admin": true
+                "password_confirmation": document.getElementById("password_confirm").value
             }
         }
 

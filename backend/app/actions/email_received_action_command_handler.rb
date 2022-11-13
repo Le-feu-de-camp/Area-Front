@@ -20,11 +20,10 @@ class EmailReceivedActionCommandHandler
     result = current_number_of_mail_received > last_number_of_mail_received
     some_mail_have_been_deleted = current_number_of_mail_received < last_number_of_mail_received
 
-    if result || some_mail_have_been_deleted
-      action = Action.find(attributs[:action_id])
-      action.options["last_number_of_email_received"] = current_number_of_mail_received
-      action.save
-    end
+    action = Action.find(attributs[:action_id])
+    action.options["last_number_of_email_received"] = current_number_of_mail_received
+    action.save
+
     result
   end
 end

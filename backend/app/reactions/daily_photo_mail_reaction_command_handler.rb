@@ -5,7 +5,7 @@ class DailyPhotoMailReactionCommandHandler
   end
 
   def call(attributes, gmail = nil, mocked_response = nil)
-    puts "Daily Photo Bg Command Handler" unless Rails.env.test?
+    puts "Daily Photo Mail Command Handler" unless Rails.env.test?
 
     img_info = mocked_response || HTTParty.get("https://api.nasa.gov/planetary/apod?api_key=0kohlBRL0b1ymWbGae4GKifyolr5cZ66qLBrHb6j")
     img = img_info["url"]
