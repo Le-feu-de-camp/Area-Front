@@ -4,14 +4,14 @@ class PlaylistFollowActionCommandHandler
   def initialize
   end
 
-  def call(attributes, spotify_service = SpotifyClient)
+  def call(attributes, spotify = nil)
     puts "Playlist Follow Command Handler" unless Rails.env.test?
 
-    spotify = spotify_service.new(nil)
-    playlist = spotify.playlist_info
+    spotify ||= SpotifyClient.new(nil)
+    playlist = spotify.playlist_info(attributes[:playlist])
 
     unless playlist["followers"]
-      puts "Error: Spotify return null"
+      puts "Error: Spotify return null" unless Rails.env.test?
       return false
     end
 
@@ -21,7 +21,7 @@ class PlaylistFollowActionCommandHandler
     result = current_follow != last_follow
 
     if result
-      puts "Follow Changed: #{result}"
+      puts "Follow Changed: #{result}" unless Rails.env.test?
       action = Action.find(attributes[:action_id])
       action.options["nb_follower"] = current_follow.to_s
       action.save
