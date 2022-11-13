@@ -4,12 +4,12 @@ class WeatherChangeActionCommandHandler
   def initialize
   end
 
-  def call(attributes)
+  def call(attributes, mocked_response = nil)
     puts "Weather Change Command Handler" unless Rails.env.test?
 
     begin
       url = "https://api.open-meteo.com/v1/forecast?latitude=#{attributes[:latitude]}&longitude=#{attributes[:longitude]}&current_weather=true"
-      weather_info = HTTParty.get(url)
+      weather_info = mocked_response || HTTParty.get(url)
       current_weather = weather_info["current_weather"]["weathercode"].to_i
       last_weather = attributes[:last_weather].to_i
     rescue NoMethodError
