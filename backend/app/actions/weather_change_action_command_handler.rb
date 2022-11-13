@@ -13,7 +13,7 @@ class WeatherChangeActionCommandHandler
       current_weather = weather_info["current_weather"]["weathercode"].to_i
       last_weather = attributes[:last_weather].to_i
     rescue NoMethodError
-      puts "Error: OpenMeteo return null"
+      puts "Error: OpenMeteo return null" unless Rails.env.test?
       return false
     end
 
@@ -21,7 +21,7 @@ class WeatherChangeActionCommandHandler
 
 
     if result
-      puts "Weather Changed: #{result}"
+      puts "Weather Changed: #{result}" unless Rails.env.test?
       action = Action.find(attributes[:action_id])
       action.options["last_weather"] = current_weather.to_s
       action.save
