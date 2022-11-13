@@ -17,8 +17,6 @@ class SpotifyClient
   end
 
   def new_release
-    return if @token.nil?
-
     HTTParty.get(
       "https://api.spotify.com/v1/browse/new-releases?limit=5",
       "headers": { "Authorization": "Bearer #{app_access_token}" }

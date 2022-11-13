@@ -4,12 +4,13 @@ class NewAlbumReactionCommandHandler
   def initialize
   end
 
-  def call(attributes, spotify_service = SpotifyClient)
+  def call(attributes, spotify = nil)
     puts "New Album Command Handler" unless Rails.env.test?
 
-    spotify = spotify_service.new(nil)
+    spotify ||= SpotifyClient.new(nil)
 
     songs = spotify.new_release
+    # byebug
     unless songs["albums"]["items"]
       puts "Error: Spotify return null"
       return false
