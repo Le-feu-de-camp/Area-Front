@@ -6,13 +6,19 @@ class SpotifyClient
   end
 
   def playlist_info(playlist_id)
-    HTTParty.get(
+    return if playlist_id.nil?
+
+    response = HTTParty.get(
       "https://api.spotify.com/v1/playlists/#{playlist_id}",
         "headers": { "Authorization": "Bearer #{app_access_token}" }
       )
+
+    response
   end
 
   def new_release
+    return if @token.nil?
+
     HTTParty.get(
       "https://api.spotify.com/v1/browse/new-releases?limit=5",
       "headers": { "Authorization": "Bearer #{app_access_token}" }
@@ -20,6 +26,8 @@ class SpotifyClient
   end
 
   def user_id
+    return if @token.nil?
+
     HTTParty.get("https://api.spotify.com/v1/me",
                  headers: { "Authorization": "Bearer #{user_access_token}" })
   end
