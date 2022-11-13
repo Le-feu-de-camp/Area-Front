@@ -18,7 +18,7 @@ class WeatherChangeActionCommand
       weather_info = mocked_response || HTTParty.get(url)
       weather_info["current_weather"]["weathercode"].to_i
     rescue NoMethodError
-      puts "Error: OpenMeteo return null"
+      puts "Error: OpenMeteo return null" unless Rails.env.test?
       nil
     end
 end
